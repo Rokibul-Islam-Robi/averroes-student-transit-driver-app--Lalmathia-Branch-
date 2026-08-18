@@ -1,4 +1,4 @@
-name: Build Android APK
+name: Build Android APK & Deploy Web
 
 on:
   push:
@@ -7,9 +7,23 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+# Permissions needed for deploying to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow one concurrent deployment for GitHub Pages
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
 jobs:
-  build:
-    name: Build & Package Release APK
+  # -------------------------------------------------------------
+  # JOB 1: Build Android Release APK
+  # -------------------------------------------------------------
+  build-android:
+    name: 📱 Build Android Release APK
     runs-on: ubuntu-latest
 
     steps:
@@ -44,3 +58,39 @@ jobs:
           name: release-apk
           path: build/app/outputs/flutter-apk/app-release.apk
           retention-days: 30
+
+  # -------------------------------------------------------------
+  # JOB 2: Build Flutter Web & Deploy to GitHub Pages
+  # -------------------------------------------------------------
+  deploy-web:
+    name: 🌐 Build & Deploy Flutter Web
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter SDK
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Install Dependencies
+        run: flutter pub get
+
+      - name: Build Flutter Web
+        run: flutter build web --release --base-href "/${{ github.event.repository.name }}/"
+
+      - name: Upload GitHub Pages Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: build/web
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

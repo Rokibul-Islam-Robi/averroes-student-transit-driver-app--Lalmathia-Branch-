@@ -10,20 +10,27 @@
 </p>
 
 <p align="center">
+  <a href="https://rokibul-islam-robi.github.io/averroes-student-transit-driver-app--Lalmathia-Branch-/">
+    <img src="https://img.shields.io/badge/🌐_Live_Web_App-Visit_Online-2088FF?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Live Web App"/>
+  </a>
+  <a href="https://github.com/Rokibul-Islam-Robi/averroes-student-transit-driver-app--Lalmathia-Branch-/actions">
+    <img src="https://img.shields.io/badge/📱_Android_APK-Download_Latest-3DDC84?style=for-the-badge&logo=android&logoColor=white" alt="Android APK"/>
+  </a>
   <img src="https://img.shields.io/badge/Flutter-3.x-02569B?style=for-the-badge&logo=flutter&logoColor=white" alt="Flutter"/>
-  <img src="https://img.shields.io/badge/Dart-3.x-0175C2?style=for-the-badge&logo=dart&logoColor=white" alt="Dart"/>
-  <img src="https://img.shields.io/badge/Android-Release%20APK-3DDC84?style=for-the-badge&logo=android&logoColor=white" alt="Android"/>
-  <img src="https://img.shields.io/badge/CI%2FCD-GitHub%20Actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white" alt="GitHub Actions"/>
   <img src="https://img.shields.io/badge/EIIN-190129-blueviolet?style=for-the-badge" alt="EIIN"/>
+</p>
+
+<p align="center">
+  <b>🌐 Live Web Portal:</b> <a href="https://rokibul-islam-robi.github.io/averroes-student-transit-driver-app--Lalmathia-Branch-/">https://rokibul-islam-robi.github.io/averroes-student-transit-driver-app--Lalmathia-Branch-/</a>
 </p>
 
 ---
 
 ## 📌 Executive Summary & Purpose
 
-The **Averroes Student & Smart Transit Application** is an enterprise-grade mobile solution developed for the students, guardians, and transit drivers of **Averroes International School (Lalmatia Branch)**. 
+The **Averroes Student & Smart Transit Application** is an enterprise-grade mobile and web solution developed for the students, guardians, teachers, and transit drivers of **Averroes International School (Lalmatia Branch)**. 
 
-The application streamlines student academic workflows, communication channels, fee settlements, and features a state-of-the-art **Live GPS Smart Bus Transit & QR Attendance System** to ensure maximum safety, transparency, and operational efficiency across school transit operations.
+The application streamlines student academic workflows, communication channels, digital fee settlements, and features a state-of-the-art **Live GPS Smart Bus Transit & QR Attendance System** to ensure maximum safety, transparency, and operational efficiency across school transit operations.
 
 ---
 
@@ -86,14 +93,33 @@ The application streamlines student academic workflows, communication channels, 
 
 ---
 
-## 📥 How to Get & Install the Application (APK)
+## 🚀 Live Web Hosting & Deployment
 
-### 🚀 Method 1: Automated Cloud Build via GitHub Actions (Recommended)
+The application is fully configured for continuous web deployment across both **GitHub Pages** (automated CI/CD) and **Firebase Hosting**.
 
-This repository includes continuous integration with **GitHub Actions**. Every update automatically builds and packages a signed release APK in the cloud.
+### 🌐 Option A: GitHub Pages (Automated via GitHub Actions)
+Every push to `main` automatically builds and deploys the latest Flutter Web app directly to:
+👉 **[https://rokibul-islam-robi.github.io/averroes-student-transit-driver-app--Lalmathia-Branch-/](https://rokibul-islam-robi.github.io/averroes-student-transit-driver-app--Lalmathia-Branch-/)**
+
+### 🔥 Option B: Firebase Hosting (One-Command Deploy)
+The repository includes a pre-configured `firebase.json` with SPA URL rewrites:
+
+```bash
+# 1. Build Flutter Web release
+flutter build web --release
+
+# 2. Deploy to Firebase Hosting
+firebase deploy --only hosting
+```
+
+---
+
+## 📥 How to Get & Install the Android APK
+
+### ⚡ Method 1: Automated Cloud Build via GitHub Actions (Recommended)
 
 1. Open the repository's [**Actions**](https://github.com/Rokibul-Islam-Robi/averroes-student-transit-driver-app--Lalmathia-Branch-/actions) tab.
-2. Select the latest completed run under **"Build Android APK"** (marked with a green checkmark ✅).
+2. Select the latest completed run under **"Build Android APK & Deploy Web"** (marked with a green checkmark ✅).
 3. Scroll down to the **Artifacts** section at the bottom of the page.
 4. Click on **`release-apk`** to download the archive containing `app-release.apk`.
 5. Extract the `.zip` file on your Android device and tap **`app-release.apk`** to install.
@@ -104,21 +130,21 @@ This repository includes continuous integration with **GitHub Actions**. Every u
 
 ### 💻 Method 2: Manual Local Build (Developers)
 
-To compile the APK locally on your development machine:
-
 ```bash
 # 1. Clone the repository
 git clone https://github.com/Rokibul-Islam-Robi/averroes-student-transit-driver-app--Lalmathia-Branch-.git
 cd averroes-student-transit-driver-app--Lalmathia-Branch-
 
-# 2. Install Flutter packages
+# 2. Install dependencies
 flutter pub get
 
 # 3. Build Release APK
 flutter build apk --release
+# Generated output: build/app/outputs/flutter-apk/app-release.apk
 
-# The compiled APK will be generated at:
-# build/app/outputs/flutter-apk/app-release.apk
+# 4. Build Flutter Web Release
+flutter build web --release
+# Generated output: build/web/
 ```
 
 ---
@@ -146,6 +172,7 @@ flutter build apk --release
 | **QR Transit Scanner** | `mobile_scanner`, `qr_flutter` |
 | **UI & Layout** | `sizer`, `flutter_svg`, `flutter_staggered_grid_view` |
 | **Storage & Caching** | `shared_preferences`, `path_provider` |
+| **Cloud Hosting** | GitHub Pages & Firebase Hosting (`firebase.json`) |
 | **CI / CD Automation** | GitHub Actions (`ubuntu-latest`, Temurin JDK 17, Flutter Stable) |
 
 ---
@@ -156,7 +183,7 @@ flutter build apk --release
 averroes_student_app/
 ├── .github/
 │   └── workflows/
-│       └── build.yml               # Automated Android APK CI/CD pipeline
+│       └── build.yml               # Automated Android APK & Web CI/CD pipeline
 ├── Assets/
 │   └── wireframe_assets/          # Vector icons, branding logos & fonts
 ├── lib/
@@ -168,7 +195,9 @@ averroes_student_app/
 │       │   └── wireframe_home/          # Academics, Fees, Bus Tracking, Support
 │       └── wireframe_theme/             # Theme tokens, styles, colors
 ├── android/                        # Native Android Gradle configuration
+├── web/                            # Flutter Web PWA template & metadata
 ├── screenshots/                    # Application UI showcase assets
+├── firebase.json                   # Firebase Hosting single-page configuration
 └── pubspec.yaml                    # Flutter dependencies and asset registrations
 ```
 
